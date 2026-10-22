@@ -24,7 +24,11 @@ dev = [
 [project.scripts]
 banxico-etl = "banxico_etl.cli:main"
 
+[tool.setuptools.packages.find]
+include = ["banxico_etl*"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["."]
 python_files = ["test_*.py"]
 addopts = "-v --strict-markers"
