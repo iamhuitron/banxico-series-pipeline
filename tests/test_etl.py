@@ -45,3 +45,10 @@ def test_load_and_analytics(tmp_path):
     assert stats["usd_min"] < stats["usd_max"]
 
     storage.close()
+
+def test_series_catalog_metadata():
+    assert BanxicoExtractor.is_cataloged_series("SF43718") is True
+    assert BanxicoExtractor.is_cataloged_series("INVALID_CODE") is False
+    assert BanxicoExtractor.get_series_description("SF43718") == "Tipo de cambio FIX (USD/MXN)"
+    assert BanxicoExtractor.get_series_description("UNKNOWN") is None
+

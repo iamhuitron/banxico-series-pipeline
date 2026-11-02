@@ -23,6 +23,16 @@ class BanxicoExtractor:
     def __init__(self, api_token: Optional[str] = None):
         self.api_token = api_token or os.environ.get("BANXICO_TOKEN")
 
+    @classmethod
+    def get_series_description(cls, series_id: str) -> Optional[str]:
+        """Returns official description of series or None if not cataloged."""
+        return BANXICO_SERIES_CATALOG.get(series_id)
+
+    @classmethod
+    def is_cataloged_series(cls, series_id: str) -> bool:
+        """Returns True if the series_id is registered in BANXICO_SERIES_CATALOG."""
+        return series_id in BANXICO_SERIES_CATALOG
+
     def fetch_series_api(self, series_id: str, start_date: str, end_date: str) -> List[Observation]:
         """
         Fetches observations from official Banxico SIE REST API.
